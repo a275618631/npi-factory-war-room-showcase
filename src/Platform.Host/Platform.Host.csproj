@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Identity.AspNetCore" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Identity.EntityFrameworkCore" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.OpenIddict.EntityFrameworkCore" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Account.Web.OpenIddict" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite" Version="5.4.0" />
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\MockData\MockData.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.14" />
+    <PackageReference Include="Microsoft.Extensions.ApiDescription.Server" Version="10.0.14">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql" Version="10.0.3" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Autofac" Version="$(AbpVersion)" />
+  </ItemGroup>
+
+  <Target Name="CopyOpenApiToWeb" AfterTargets="GenerateOpenApiDocuments" Condition="Exists('$(BaseIntermediateOutputPath)$(MSBuildProjectName).json')">
+    <Copy SourceFiles="$(BaseIntermediateOutputPath)$(MSBuildProjectName).json"
+          DestinationFiles="$(MSBuildProjectDirectory)/../Web/openapi.json"
+          SkipUnchangedFiles="true"
+          ContinueOnError="true" />
+  </Target>
+
+</Project>

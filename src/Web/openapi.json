@@ -1,0 +1,1240 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Platform.Host | v1",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/demo/ping": {
+      "get": {
+        "tags": [
+          "Demo"
+        ],
+        "operationId": "GetDemoPing",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PingResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/demo/projects": {
+      "get": {
+        "tags": [
+          "Demo"
+        ],
+        "operationId": "GetDemoProjects",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemoProjectsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/n4/ping": {
+      "get": {
+        "tags": [
+          "N4"
+        ],
+        "operationId": "GetN4Ping",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PingResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/modules": {
+      "get": {
+        "tags": [
+          "Modules"
+        ],
+        "operationId": "GetEnabledModules",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnabledModulesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/modules/{name}": {
+      "put": {
+        "tags": [
+          "Modules"
+        ],
+        "operationId": "UpdateModuleState",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateModuleStateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/org/tree": {
+      "get": {
+        "tags": [
+          "Org"
+        ],
+        "operationId": "GetOrgTree",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrgTreeNodeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/import/{table}": {
+      "post": {
+        "tags": [
+          "Import"
+        ],
+        "operationId": "ImportBatch",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchImportPayload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchImportResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/import/batches": {
+      "get": {
+        "tags": [
+          "Import"
+        ],
+        "operationId": "GetImportBatches",
+        "parameters": [
+          {
+            "name": "take",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ImportBatchDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/import/batches/{batchId}": {
+      "get": {
+        "tags": [
+          "Import"
+        ],
+        "operationId": "GetImportBatchDetail",
+        "parameters": [
+          {
+            "name": "batchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportBatchDetailDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/import/batches/{batchId}/error-report": {
+      "get": {
+        "tags": [
+          "Import"
+        ],
+        "operationId": "DownloadImportErrorReport",
+        "parameters": [
+          {
+            "name": "batchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/audit-logs": {
+      "get": {
+        "tags": [
+          "Audit"
+        ],
+        "operationId": "GetAuditLogs",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "target",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditLogDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects": {
+      "get": {
+        "tags": [
+          "Projects"
+        ],
+        "operationId": "GetProjects",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{projectCode}": {
+      "get": {
+        "tags": [
+          "Projects"
+        ],
+        "operationId": "GetProjectDetail",
+        "parameters": [
+          {
+            "name": "projectCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/settings/stages": {
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "operationId": "GetStageSettings",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StageConfigItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Settings"
+        ],
+        "operationId": "UpdateStageSettings",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/StageConfigItem"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StageConfigItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user-preference": {
+      "get": {
+        "tags": [
+          "UserPreference"
+        ],
+        "operationId": "GetUserPreference",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserUiPreferenceDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "UserPreference"
+        ],
+        "operationId": "UpdateUserPreference",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserUiPreferenceInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserUiPreferenceDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/deep-links/context": {
+      "get": {
+        "tags": [
+          "DeepLinks"
+        ],
+        "operationId": "GetDeepLinkContext",
+        "parameters": [
+          {
+            "name": "projectCode",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "stageCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "unitCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "itemType",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "itemCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeepLinkContextResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeepLinkContextResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuditLogDto": {
+        "required": [
+          "id",
+          "tenantId",
+          "category",
+          "action",
+          "target",
+          "oldValue",
+          "newValue",
+          "operatorId",
+          "operatorName",
+          "timestamp",
+          "details"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tenantId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "uuid"
+          },
+          "category": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "oldValue": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "newValue": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "operatorId": {
+            "type": "string"
+          },
+          "operatorName": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "details": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "BatchImportPayload": {
+        "type": "object",
+        "properties": {
+          "batchId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "rows": {
+            "type": "array"
+          }
+        }
+      },
+      "BatchImportResponse": {
+        "type": "object",
+        "properties": {
+          "batchId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tableName": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "totalRows": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "successRows": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "failedRows": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "isDuplicate": {
+            "type": "boolean"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "BreadcrumbNodeDto": {
+        "required": [
+          "level",
+          "code",
+          "name",
+          "path"
+        ],
+        "type": "object",
+        "properties": {
+          "level": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        }
+      },
+      "DeepLinkContextResponse": {
+        "required": [
+          "hasPermission",
+          "errorMessage",
+          "breadcrumb"
+        ],
+        "type": "object",
+        "properties": {
+          "hasPermission": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "breadcrumb": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BreadcrumbNodeDto"
+            }
+          }
+        }
+      },
+      "DemoProjectsResponse": {
+        "required": [
+          "projects"
+        ],
+        "type": "object",
+        "properties": {
+          "projects": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "EnabledModulesResponse": {
+        "required": [
+          "enabledModules"
+        ],
+        "type": "object",
+        "properties": {
+          "enabledModules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ImportBatchDetailDto": {
+        "required": [
+          "batch",
+          "errors"
+        ],
+        "type": "object",
+        "properties": {
+          "batch": {
+            "$ref": "#/components/schemas/ImportBatchDto"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImportErrorDto"
+            }
+          }
+        }
+      },
+      "ImportBatchDto": {
+        "required": [
+          "id",
+          "tableName",
+          "fileName",
+          "status",
+          "totalRows",
+          "successRows",
+          "failedRows",
+          "importMethod",
+          "createdAt"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tableName": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "totalRows": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "successRows": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "failedRows": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "importMethod": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ImportErrorDto": {
+        "required": [
+          "id",
+          "importBatchId",
+          "rowNumber",
+          "fieldName",
+          "originalValue",
+          "reason",
+          "suggestion",
+          "createdAt"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "importBatchId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "rowNumber": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "fieldName": {
+            "type": "string"
+          },
+          "originalValue": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "suggestion": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OrgTreeNodeDto": {
+        "type": "object",
+        "properties": {
+          "unitCode": {
+            "type": "string"
+          },
+          "unitName": {
+            "type": "string"
+          },
+          "parentCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "team": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "managerPersonCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "memberCount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrgTreeNodeDto"
+            }
+          }
+        }
+      },
+      "PingResponse": {
+        "required": [
+          "message",
+          "timestamp"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ProjectDto": {
+        "required": [
+          "projectCode",
+          "projectName",
+          "pmPersonCode",
+          "currentStageCode",
+          "currentBuild",
+          "plannedQty",
+          "customerRef",
+          "totalDelayDays",
+          "stages"
+        ],
+        "type": "object",
+        "properties": {
+          "projectCode": {
+            "type": "string"
+          },
+          "projectName": {
+            "type": "string"
+          },
+          "pmPersonCode": {
+            "type": "string"
+          },
+          "currentStageCode": {
+            "type": "string"
+          },
+          "currentBuild": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "plannedQty": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "customerRef": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "totalDelayDays": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "stages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StagePlanDto"
+            }
+          }
+        }
+      },
+      "StageConfigItem": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "order": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "color": {
+            "type": "string"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "StagePlanDto": {
+        "required": [
+          "stageCode",
+          "stageName",
+          "plannedStart",
+          "plannedEnd",
+          "actualStart",
+          "actualEnd",
+          "gateDate",
+          "gateOwnerPersonCode",
+          "delayDays",
+          "isDelayed",
+          "isCurrent"
+        ],
+        "type": "object",
+        "properties": {
+          "stageCode": {
+            "type": "string"
+          },
+          "stageName": {
+            "type": "string"
+          },
+          "plannedStart": {
+            "type": "string",
+            "format": "date"
+          },
+          "plannedEnd": {
+            "type": "string",
+            "format": "date"
+          },
+          "actualStart": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date"
+          },
+          "actualEnd": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date"
+          },
+          "gateDate": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date"
+          },
+          "gateOwnerPersonCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "delayDays": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "isDelayed": {
+            "type": "boolean"
+          },
+          "isCurrent": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UpdateModuleStateRequest": {
+        "required": [
+          "isEnabled"
+        ],
+        "type": "object",
+        "properties": {
+          "isEnabled": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UpdateUserUiPreferenceInput": {
+        "required": [
+          "viewMode",
+          "motion",
+          "lastProjectCode"
+        ],
+        "type": "object",
+        "properties": {
+          "viewMode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "motion": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "lastProjectCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "UserUiPreferenceDto": {
+        "required": [
+          "viewMode",
+          "motion",
+          "lastProjectCode",
+          "updatedAt"
+        ],
+        "type": "object",
+        "properties": {
+          "viewMode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "motion": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "lastProjectCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Demo"
+    },
+    {
+      "name": "N4"
+    },
+    {
+      "name": "Modules"
+    },
+    {
+      "name": "Org"
+    },
+    {
+      "name": "Import"
+    },
+    {
+      "name": "Audit"
+    },
+    {
+      "name": "Projects"
+    },
+    {
+      "name": "Settings"
+    },
+    {
+      "name": "UserPreference"
+    },
+    {
+      "name": "DeepLinks"
+    }
+  ]
+}
+

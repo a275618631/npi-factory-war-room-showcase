@@ -1,0 +1,22 @@
+{
+  "culture": "zh-TW",
+  "texts": {
+    "Project": "專案",
+    "Stage": "關卡",
+    "Issue": "問題",
+    "Blocker": "卡關",
+    "Part": "料件",
+    "Station": "工站",
+    "Yield": "良率",
+    "Organization": "組織",
+    "Department": "部門",
+    "Person": "人員",
+    "Deliverable": "交付物",
+    "Review": "審查",
+    "Settings": "設定",
+    "Import": "匯入",
+    "Audit": "稽核"
+  }
+}
+
+

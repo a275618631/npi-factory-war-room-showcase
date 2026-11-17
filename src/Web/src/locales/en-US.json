@@ -1,0 +1,19 @@
+{
+  "Project": "Project",
+  "Stage": "Stage",
+  "Issue": "Issue",
+  "Blocker": "Blocker",
+  "Part": "Part",
+  "Station": "Station",
+  "Yield": "Yield",
+  "Organization": "Organization",
+  "Department": "Department",
+  "Person": "Person",
+  "Deliverable": "Deliverable",
+  "Review": "Review",
+  "Settings": "Settings",
+  "Import": "Import",
+  "Audit": "Audit"
+}
+
+

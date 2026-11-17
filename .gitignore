@@ -1,0 +1,42 @@
+# Node
+node_modules/
+dist/
+build/
+.vite/
+*.log
+npm-debug.log*
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+# Env and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+# Docker volumes and local data
+data/
+volumes/
+*.sqlite
+*.db
+# Company data must never be committed
+company-data/
+exports/
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# .NET
+bin/
+obj/
+TestResults/
+
+# 總管狀態：state.md 和 lock 進版控，log 和暫存不進
+.agent/logs/
+.agent/tmp/
+.agent/*.tmp
+*.summary

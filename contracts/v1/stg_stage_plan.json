@@ -1,0 +1,17 @@
+{
+  "table_name": "stg_stage_plan",
+  "version": "v1",
+  "description": "階段計畫（M1）",
+  "fields": [
+    { "name": "project_code", "type": "string", "required": true, "description": "專案代號", "example": "NPI-2601" },
+    { "name": "stage_code", "type": "string", "required": true, "description": "階段代號", "example": "DVT" },
+    { "name": "planned_start", "type": "date", "required": true, "description": "計畫開始日", "example": "2026-12-01" },
+    { "name": "planned_end", "type": "date", "required": true, "description": "計畫結束日", "example": "2027-01-15" },
+    { "name": "actual_start", "type": "date", "required": false, "description": "實際開始日", "example": "2026-12-03" },
+    { "name": "actual_end", "type": "date", "required": false, "description": "實際結束日", "example": "2027-01-15" },
+    { "name": "gate_date", "type": "date", "required": false, "description": "關卡審查日", "example": "2027-01-20" },
+    { "name": "gate_owner_person_code", "type": "string", "required": false, "description": "關卡負責人（2026-11-03 新增；不填就用專案經理）", "example": "E1001" }
+  ]
+}
+
+

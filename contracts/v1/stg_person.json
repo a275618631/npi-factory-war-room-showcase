@@ -1,0 +1,15 @@
+{
+  "table_name": "stg_person",
+  "version": "v1",
+  "description": "人員（核心）",
+  "fields": [
+    { "name": "person_code", "type": "string", "required": true, "description": "人員代號，公司內唯一", "example": "DEMO023" },
+    { "name": "display_name", "type": "string", "required": true, "description": "顯示名稱", "example": "Example Person" },
+    { "name": "unit_code", "type": "string", "required": true, "description": "所屬部門", "example": "EE" },
+    { "name": "email", "type": "string", "required": false, "description": "電子郵件，用來對應登入帳號和通知", "example": "person@example.com" },
+    { "name": "title", "type": "string", "required": false, "description": "職稱", "example": "Sample Engineer" }
+  ]
+}
+
+
+

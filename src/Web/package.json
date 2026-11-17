@@ -1,0 +1,66 @@
+{
+  "name": "web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext .vue,.ts",
+    "typecheck": "vue-tsc --noEmit",
+    "gen:api": "dotnet build ../Platform.Host/Platform.Host.csproj -nologo -v q && openapi-typescript openapi.json -o src/api/schema.d.ts",
+    "test:unit": "vitest run",
+    "test:e2e": "NODE_PATH=./node_modules playwright test"
+  },
+  "dependencies": {
+    "@vueuse/core": "^15.0.0",
+    "element-plus": "^2.9.5",
+    "oidc-client-ts": "^3.1.0",
+    "pinia": "^3.0.1",
+    "vue": "^3.5.13",
+    "vue-i18n": "^11.1.1",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^22.13.5",
+    "@typescript-eslint/parser": "^8.24.1",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/test-utils": "^2.4.6",
+    "eslint": "^8.57.1",
+    "eslint-plugin-vue": "^9.32.0",
+    "happy-dom": "^17.1.8",
+    "openapi-typescript": "^7.13.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0",
+    "vitest": "^3.0.7",
+    "vue-eslint-parser": "^9.4.3",
+    "vue-tsc": "^2.2.8"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "node": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:vue/vue3-recommended"
+    ],
+    "parser": "vue-eslint-parser",
+    "parserOptions": {
+      "parser": "@typescript-eslint/parser",
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "rules": {
+      "vue/multi-word-component-names": "off",
+      "vue/max-attributes-per-line": "off",
+      "vue/singleline-html-element-content-newline": "off",
+      "no-unused-vars": "off"
+    }
+  }
+}
+
+

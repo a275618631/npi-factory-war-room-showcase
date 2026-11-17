@@ -1,0 +1,26 @@
+{
+  "table_name": "stg_blocker",
+  "version": "v1",
+  "description": "卡關（N4）",
+  "fields": [
+    { "name": "blocker_no", "type": "string", "required": true, "description": "卡關編號", "example": "BLK-0031" },
+    { "name": "project_code", "type": "string", "required": true, "description": "哪個專案", "example": "NPI-2601" },
+    { "name": "stage_code", "type": "string", "required": true, "description": "哪一關", "example": "DVT" },
+    { "name": "unit_code", "type": "string", "required": true, "description": "哪個單位卡住", "example": "SQE" },
+    { "name": "detail", "type": "string", "required": true, "description": "卡在哪個細節", "example": "供應商 PPAP 文件還沒送審" },
+    { "name": "ref_type", "type": "string", "required": false, "description": "關聯的項目類型（交付物、問題或任務）", "example": "交付物" },
+    { "name": "ref_code", "type": "string", "required": false, "description": "關聯的項目代碼", "example": "DVT-PPAP" },
+    { "name": "owner_person_code", "type": "string", "required": true, "description": "負責人", "example": "E2031" },
+    { "name": "since_date", "type": "date", "required": true, "description": "從哪一天開始卡", "example": "2026-11-20" },
+    { "name": "next_step", "type": "string", "required": true, "description": "下一步", "example": "催供應商 11/25 前送件" },
+    { "name": "next_step_due", "type": "date", "required": true, "description": "下一步期限", "example": "2026-11-25" },
+    { "name": "waiting_for", "type": "string", "required": false, "description": "在等誰（人員或外部單位）", "example": "供應商 15" },
+    { "name": "status", "type": "string", "required": true, "description": "狀態：卡住、處理中、已解除", "example": "卡住" },
+    { "name": "reason_category", "type": "string", "required": false, "description": "卡關原因分類（2026-11-03 新增，要是設定裡有的分類）", "example": "等外部" },
+    { "name": "escalated_to_person_code", "type": "string", "required": false, "description": "已升級給誰", "example": "E1001" },
+    { "name": "resolved_date", "type": "date", "required": false, "description": "解除日", "example": "2026-11-26" },
+    { "name": "resolution_note", "type": "string", "required": false, "description": "解除原因", "example": "供應商已送件" }
+  ]
+}
+
+

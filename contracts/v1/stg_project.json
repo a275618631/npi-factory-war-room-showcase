@@ -1,0 +1,16 @@
+{
+  "table_name": "stg_project",
+  "version": "v1",
+  "description": "專案（M1 專案與階段）",
+  "fields": [
+    { "name": "project_code", "type": "string", "required": true, "description": "專案代號", "example": "NPI-2601" },
+    { "name": "project_name", "type": "string", "required": true, "description": "專案名稱", "example": "範例產品 A" },
+    { "name": "pm_person_code", "type": "string", "required": true, "description": "專案經理", "example": "E1001" },
+    { "name": "current_stage_code", "type": "string", "required": true, "description": "目前階段代號（要是設定裡有的階段）", "example": "DVT" },
+    { "name": "current_build", "type": "string", "required": false, "description": "目前試產批次", "example": "DVT-2" },
+    { "name": "planned_qty", "type": "integer", "required": false, "description": "本批計畫投產數", "example": 600 },
+    { "name": "customer_ref", "type": "string", "required": false, "description": "客戶代稱（可以不填真名）", "example": "客戶 A" }
+  ]
+}
+
+

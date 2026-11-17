@@ -1,0 +1,20 @@
+{
+  "table_name": "stg_deliverable",
+  "version": "v1",
+  "description": "交付物（M2 關卡審查）",
+  "fields": [
+    { "name": "project_code", "type": "string", "required": true, "description": "屬於哪個專案", "example": "NPI-2601" },
+    { "name": "stage_code", "type": "string", "required": true, "description": "哪一關", "example": "DVT" },
+    { "name": "deliverable_code", "type": "string", "required": true, "description": "交付物代號（可以對應設定裡的交付物範本）", "example": "DVT-RPT" },
+    { "name": "deliverable_name", "type": "string", "required": true, "description": "名稱", "example": "DVT 測試報告" },
+    { "name": "owner_person_code", "type": "string", "required": true, "description": "負責人", "example": "DEMO023" },
+    { "name": "receiver_person_code", "type": "string", "required": false, "description": "接收人", "example": "E1001" },
+    { "name": "due_date", "type": "date", "required": true, "description": "到期日", "example": "2027-01-10" },
+    { "name": "mandatory", "type": "boolean", "required": true, "description": "是否必要", "example": true },
+    { "name": "status", "type": "string", "required": true, "description": "狀態：未開始、進行中、已交、已核准", "example": "進行中" },
+    { "name": "percent_done", "type": "integer", "required": false, "description": "完成比例（2026-11-03 新增；只用來顯示，關卡完成比例仍依狀態計算）", "example": 60 },
+    { "name": "unit_code", "type": "string", "required": false, "description": "負責單位（2026-11-03 新增；不填就用負責人的所屬單位）", "example": "SQE" }
+  ]
+}
+
+

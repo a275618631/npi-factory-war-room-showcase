@@ -1,0 +1,14 @@
+{
+  "table_name": "stg_org_unit",
+  "version": "v1",
+  "description": "部門（核心）",
+  "fields": [
+    { "name": "unit_code", "type": "string", "required": true, "description": "部門代號", "example": "EE" },
+    { "name": "unit_name", "type": "string", "required": true, "description": "部門名稱", "example": "電子設計" },
+    { "name": "parent_code", "type": "string", "required": false, "description": "上層部門代號", "example": "RD" },
+    { "name": "team", "type": "string", "required": false, "description": "所屬團隊（單位矩陣依團隊分組）", "example": "硬體" },
+    { "name": "manager_person_code", "type": "string", "required": false, "description": "單位主管（2026-11-03 新增；單位頁的負責人、卡關升級對象）", "example": "E1002" }
+  ]
+}
+
+

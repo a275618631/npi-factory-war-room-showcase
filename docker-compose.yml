@@ -1,0 +1,62 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD to a local demo-only value}"
+      POSTGRES_DB: Default
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d Default"]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+
+  backend:
+    build:
+      context: .
+      dockerfile: src/Platform.Host/Dockerfile
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=Default;Username=postgres;Password=${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD to a local demo-only value}"
+      SEED_MOCK_DATA: "true"
+      DEMO_USER_PASSWORD: "${DEMO_USER_PASSWORD:?Set DEMO_USER_PASSWORD to a local demo-only value}"
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5000/health || exit 1"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+
+  frontend:
+    build:
+      context: src/Web
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      VITE_AUTH_MODE: "oidc"
+      VITE_OIDC_AUTHORITY: "http://localhost:5000"
+      VITE_OIDC_CLIENT_ID: "npi-web"
+      VITE_DEMO_USER: "demo"
+      VITE_BACKEND_URL: "http://backend:5000"
+    ports:
+      - "5173:5173"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+
+
+
+
