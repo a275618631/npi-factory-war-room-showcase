@@ -10,14 +10,6 @@ if ! docker info >/dev/null 2>&1; then
   exit 1
 fi
 
-# 確保 Linux bridge 封包轉發暢通（避免某些環境預設 policy DROP 阻擋容器間通訊）
-if command -v iptables-legacy >/dev/null 2>&1; then
-  sudo iptables-legacy -P FORWARD ACCEPT >/dev/null 2>&1 || true
-fi
-if command -v iptables >/dev/null 2>&1; then
-  sudo iptables -P FORWARD ACCEPT >/dev/null 2>&1 || true
-fi
-
 # 自動偵測本機 5432 埠是否被佔用，避免與本地已存在的 PostgreSQL 衝突
 if [ -z "${POSTGRES_PORT:-}" ]; then
   if (nc -z 127.0.0.1 5432 || (echo > /dev/tcp/127.0.0.1/5432)) >/dev/null 2>&1; then
