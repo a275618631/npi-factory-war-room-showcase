@@ -18,6 +18,8 @@ venv/
 *.key
 # Docker volumes and local data
 data/
+!src/Core/Data/
+!src/Core/Data/**
 volumes/
 *.sqlite
 *.db
